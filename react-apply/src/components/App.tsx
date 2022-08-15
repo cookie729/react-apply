@@ -1,22 +1,19 @@
 import { ChangeEvent, useState, FC, useCallback } from "react";
 import styled from "styled-components";
 import { MemoList } from "./MemoList";
+import { useMemoList } from "../hooks/useMemoList";
 
 export const App: FC = () => {
+  // カスタムフックから取得
+  const { memos, addTodo, deleteTodo } = useMemoList();
   // テキストボックスState
   const [text, setText] = useState<string>("");
-  // メモ一覧State
-  const [memos, setMemos] = useState<string[]>([]);
   // テキストボックスの入力内容をStateに設定
   const onChangeText = ( e: ChangeEvent<HTMLInputElement> ) => setText(e.target.value);
 
-  
   const onClickAdd = () => {
-    // State検知する為の新しい配列
-    const newMemos = [ ...memos ];
-    // 入力内容をメモに追加
-    newMemos.push( text );
-    setMemos( newMemos );
+    // カスタムフックのメモ追加実行
+    addTodo(text);
     // テキストボックスを空にする
     setText("");
   };
@@ -24,11 +21,9 @@ export const App: FC = () => {
   // 削除クリック時何番目が押されたか引数で受け取る
   const onClickDelete = useCallback(
     ( index: number ) => {
-    const newMemos = [ ...memos ];
-    // メモから該当の要素削除
-    newMemos.splice( index, 1 );
-    setMemos( newMemos );
-  }, [memos]);
+  // カスタムフックのメモ削除実行
+  deleteTodo(index);
+  },[deleteTodo]);
 
 
   return (
@@ -40,7 +35,6 @@ export const App: FC = () => {
     </div>
   );
 };
-
 
 const SButton = styled.button`
   margin-left: 16px;
