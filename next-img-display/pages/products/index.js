@@ -1,5 +1,13 @@
 import Link from 'next/link';
 import styles from '../../styles/Home.module.css'
+import React, { useState } from 'react'
+import styled from'styled-components'
+import RenderResult from 'next/dist/server/render-result';
+
+
+const onClickInput = () => {
+  console.log("OK");
+};
 
 export default function ProductsList() {
   return (
@@ -26,7 +34,10 @@ export default function ProductsList() {
             </Link>
           </li>
         </ul>
-        
+        <label className={styles.label}>
+          <input className={styles.input} onClick={onClickInput} type="file" accept="image/*" />ファイル選択
+        </label>
+        <p>選択されていません</p>
       </main>
     </div>
   );

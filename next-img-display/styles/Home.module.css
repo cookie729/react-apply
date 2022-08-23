@@ -12,6 +12,17 @@
   align-items: center;
 }
 
+.input[type="file"] {
+  display: none;
+  background: red;
+}
+
+.label {
+  padding: 10px 30px; 
+  background-color: #b6eff3;
+  cursor: pointer;
+}
+
 .footer {
   display: flex;
   flex: 1;
